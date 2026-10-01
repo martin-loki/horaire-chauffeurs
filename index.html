@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Horaire — Olivier Landry</title>
+<style>
+  :root {
+    --navy: #2c6e8f; --gold: #8a6413; --ink: #181c1f; --muted: #5b646c;
+    --bg: #faf9f6; --card: #ffffff; --border: #e4e0d4;
+    --ok: #2f6d47; --prov: #b8891a; --cancel: #9aa3aa;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0 0 40px; background: var(--bg); color: var(--ink);
+    font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.4;
+  }
+  header {
+    background: var(--navy); color: #fff; padding: 20px 16px 18px;
+  }
+  header h1 { margin: 0; font-size: 1.3rem; }
+  header .sub { font-size: 0.85rem; opacity: 0.85; margin-top: 4px; }
+  main { max-width: 640px; margin: 0 auto; padding: 16px; }
+  .day-group { margin-bottom: 22px; }
+  .day-group h2 {
+    font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.3px;
+    color: var(--muted); border-bottom: 1px solid var(--border);
+    padding-bottom: 6px; margin: 0 0 10px;
+  }
+  .day-group.is-today h2 { color: var(--navy); }
+  .today-tag {
+    background: var(--navy); color: #fff; font-size: 0.7rem; padding: 2px 8px;
+    border-radius: 10px; text-transform: none; letter-spacing: 0;
+  }
+  .assignment {
+    display: flex; gap: 12px; background: var(--card); border: 1px solid var(--border);
+    border-left: 4px solid var(--ok); border-radius: 6px; padding: 10px 12px; margin-bottom: 8px;
+  }
+  .assignment.status-provisoire { border-left-color: var(--prov); }
+  .assignment.status-annule { border-left-color: var(--cancel); opacity: 0.6; }
+  .assignment.status-annule .a-title { text-decoration: line-through; }
+  .a-time { min-width: 70px; font-weight: 600; font-size: 0.85rem; color: var(--navy); }
+  .a-title { font-weight: 600; margin-bottom: 2px; }
+  .unit { font-weight: 400; color: var(--muted); }
+  .a-meta { font-size: 0.8rem; color: var(--muted); }
+  .route { font-size: 0.8rem; color: var(--muted); margin-top: 3px; }
+  .notes { font-size: 0.8rem; color: var(--muted); margin-top: 3px; font-style: italic; }
+  .empty { color: var(--muted); text-align: center; padding: 40px 0; }
+  footer {
+    max-width: 640px; margin: 20px auto 0; padding: 12px 16px 0; border-top: 1px solid var(--border);
+    font-size: 0.75rem; color: var(--muted); text-align: center;
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Horaire — Olivier Landry</h1>
+  <div class="sub">Loki Coach · Consultation seule · Mis à jour automatiquement plusieurs fois par jour</div>
+</header>
+<main>
+<div class="day-group is-today">
+<h2>jeudi 1 octobre 2026 <span class="today-tag">Aujourd'hui</span></h2>
+<div class="assignment status-confirme"><div class="a-time">12:00 – 13:00</div><div class="a-body"><div class="a-title">RDV exhaust LC036 · <span class="unit">LC036</span></div><div class="a-meta">Production ·  · usine lokiConfirmé</div><div class="route">? → Vr expert</div></div></div>
+</div>
+<div class="day-group">
+<h2>vendredi 2 octobre 2026</h2>
+<div class="assignment status-confirme"><div class="a-time">12:00 – 13:00</div><div class="a-body"><div class="a-title">aller chercher LC036 Vr expert</div><div class="a-meta">Production · Confirmé</div><div class="route">vr expert → usine Loki</div></div></div>
+</div>
+<div class="day-group">
+<h2>lundi 5 octobre 2026</h2>
+<div class="assignment status-confirme"><div class="a-time">14:00 – 16:00</div><div class="a-body"><div class="a-title">Switch chez chabot Départ avec LC040 et retour avec LC042</div><div class="a-meta">Production · Confirmé</div><div class="route">usine loki → chabot</div></div></div>
+</div>
+<div class="day-group">
+<h2>mardi 6 octobre 2026</h2>
+<div class="assignment status-confirme"><div class="a-time">07:00 – 08:00</div><div class="a-body"><div class="a-title">LC028 RDV Prevost Entretiens · <span class="unit">LC028</span></div><div class="a-meta">Production · Confirmé</div><div class="route">usine loki → prevost st nicolas</div></div></div>
+</div>
+<div class="day-group">
+<h2>jeudi 8 octobre 2026</h2>
+<div class="assignment status-confirme"><div class="a-time">07:00 – 08:00</div><div class="a-body"><div class="a-title">LC016 RDV entretien VR expert</div><div class="a-meta">Production · Confirmé</div><div class="route">usine loki → Vr expert</div></div></div>
+</div>
+<div class="day-group">
+<h2>dimanche 25 octobre 2026</h2>
+<div class="assignment status-confirme"><div class="a-time">08:00 – 17:00</div><div class="a-body"><div class="a-title">Évènement  + Livraison chez TMCS LC032 · <span class="unit">LC032</span></div><div class="a-meta">Marketing · Confirmé</div><div class="route">usine Loki → TMCS</div></div></div>
+</div>
+</main>
+<footer>
+  Généré automatiquement depuis Feuille de Route — dernière mise à jour : 2026-10-01 17:47 UTC.<br>
+  Pour toute modification, contacte Martin Goizioux ou Maxime Boulianne.
+</footer>
+</body>
+</html>
