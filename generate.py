@@ -10,6 +10,9 @@ Usage: python3 generate.py data.json index.html
 import json
 import sys
 from datetime import datetime, timezone, date
+from zoneinfo import ZoneInfo
+
+QC_TZ = ZoneInfo("America/Toronto")  # heure de Québec (Est/Elgin)
 
 TYPE_LABELS = {
     "production": "Production",
@@ -48,7 +51,7 @@ def build_html(payload):
     first_name = driver_name.strip().split(" ")[0] if driver_name.strip() else "Chauffeur"
     assignments = payload.get("assignments", [])
 
-    today = date.today()
+    today = datetime.now(QC_TZ).date()  # "aujourd'hui" selon l'heure de Québec, pas le serveur
 
     # Garde les affectations d'aujourd'hui moins 2 jours (contexte récent) et au-delà.
     def keep(a):
@@ -101,12 +104,17 @@ def build_html(payload):
                 if a.get("notes") else ""
             )
             unit = (' · <span class="unit">%s</span>' % esc(a["unit"])) if a.get("unit") else ""
+            meta_parts = [esc(type_label)]
+            if a.get("location"):
+                meta_parts.append(esc(a["location"]))
+            meta_parts.append(esc(status_label))
+            meta_html = " · ".join(meta_parts)
             rows_html.append(
                 '<div class="assignment status-%s">'
                 '<div class="a-time">%s</div>'
                 '<div class="a-body">'
                 '<div class="a-title">%s%s</div>'
-                '<div class="a-meta">%s · %s%s</div>'
+                '<div class="a-meta">%s</div>'
                 '%s%s'
                 '</div>'
                 '</div>' % (
@@ -114,16 +122,15 @@ def build_html(payload):
                     esc(time_str),
                     esc(a.get("title", "")),
                     unit,
-                    esc(type_label),
-                    esc(a.get("location", "")) and (" · " + esc(a["location"])) or "",
-                    esc(status_label),
+                    meta_html,
                     route,
                     notes,
                 )
             )
         rows_html.append('</div>')
 
-    generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    generated_at_local = datetime.now(timezone.utc).astimezone(QC_TZ)
+    generated_at = generated_at_local.strftime("%Y-%m-%d %H:%M") + " (heure de Québec)"
 
     # ---- Données brutes pour les vues Semaine / Mois (construites en JS) ----
     # On ne garde que les champs utiles au rendu, pour une page plus légère.
@@ -269,7 +276,7 @@ HTML_TEMPLATE = """<!doctype html>
   }}
   .month-cell {{
     background: var(--card); border: 1px solid var(--border); border-radius: 6px;
-    min-height: 64px; padding: 4px; font-size: 0.72rem;
+    min-height: 64px; padding: 4px; font-size: 0.72rem; min-width: 0; overflow: hidden;
   }}
   .month-cell.outside {{ opacity: 0.35; }}
   .month-cell.is-today {{ border-color: var(--navy); border-width: 2px; }}
@@ -290,7 +297,10 @@ HTML_TEMPLATE = """<!doctype html>
 
   @media (min-width: 560px) {{
     .week-grid {{ display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }}
+    .week-day {{ min-width: 0; overflow: hidden; }}
   }}
+  .month-grid {{ max-width: 100%; }}
+  main {{ overflow-x: hidden; }}
 </style>
 </head>
 <body>

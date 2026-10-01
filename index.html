@@ -108,7 +108,7 @@
   }
   .month-cell {
     background: var(--card); border: 1px solid var(--border); border-radius: 6px;
-    min-height: 64px; padding: 4px; font-size: 0.72rem;
+    min-height: 64px; padding: 4px; font-size: 0.72rem; min-width: 0; overflow: hidden;
   }
   .month-cell.outside { opacity: 0.35; }
   .month-cell.is-today { border-color: var(--navy); border-width: 2px; }
@@ -129,7 +129,10 @@
 
   @media (min-width: 560px) {
     .week-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+    .week-day { min-width: 0; overflow: hidden; }
   }
+  .month-grid { max-width: 100%; }
+  main { overflow-x: hidden; }
 </style>
 </head>
 <body>
@@ -147,7 +150,7 @@
   <div id="view-agenda" class="view active">
 <div class="day-group is-today">
 <h2>jeudi 1 octobre 2026 <span class="today-tag">Aujourd'hui</span></h2>
-<div class="assignment status-confirme"><div class="a-time">12:00 – 13:00</div><div class="a-body"><div class="a-title">RDV exhaust LC036 · <span class="unit">LC036</span></div><div class="a-meta">Production ·  · usine lokiConfirmé</div><div class="route">? → Vr expert</div></div></div>
+<div class="assignment status-confirme"><div class="a-time">12:00 – 13:00</div><div class="a-body"><div class="a-title">RDV exhaust LC036 · <span class="unit">LC036</span></div><div class="a-meta">Production · usine loki · Confirmé</div><div class="route">? → Vr expert</div></div></div>
 </div>
 <div class="day-group">
 <h2>vendredi 2 octobre 2026</h2>
@@ -196,7 +199,7 @@
   </div>
 </main>
 <footer>
-  Généré automatiquement depuis Feuille de Route — dernière mise à jour : 2026-10-01 19:58 UTC.<br>
+  Généré automatiquement depuis Feuille de Route — dernière mise à jour : 2026-10-01 16:02 (heure de Québec).<br>
   Pour toute modification, contacte Martin Goizioux ou Maxime Boulianne.
 </footer>
 <script>
