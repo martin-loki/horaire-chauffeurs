@@ -64,7 +64,7 @@ def build_html(payload):
     assignments = [a for a in assignments if keep(a)]
     assignments.sort(key=lambda a: (a.get("startDate", ""), a.get("startTime", "")))
 
-    # ---- Vue Agenda (rendue côté serveur, identique à avant) ----
+    # ---- Vue Agenda (rendue côté serveur) ----
     groups = []
     last_date = None
     for a in assignments:
@@ -133,7 +133,6 @@ def build_html(payload):
     generated_at = generated_at_local.strftime("%Y-%m-%d %H:%M") + " (heure de Québec)"
 
     # ---- Données brutes pour les vues Semaine / Mois (construites en JS) ----
-    # On ne garde que les champs utiles au rendu, pour une page plus légère.
     slim = []
     for a in assignments:
         slim.append({
@@ -153,17 +152,11 @@ def build_html(payload):
 
     return HTML_TEMPLATE.format(
         driver_name=esc(first_name),
-        rows=esc_keep_tags("\n".join(rows_html)),
+        rows="\n".join(rows_html),
         generated_at=generated_at,
         data_json=data_json,
         today_json=today_json,
     )
-
-
-def esc_keep_tags(s):
-    # rows_html est déjà du HTML construit (pas besoin de ré-échapper) ;
-    # fonction conservée pour lisibilité du point d'assemblage.
-    return s
 
 
 HTML_TEMPLATE = """<!doctype html>
@@ -188,9 +181,8 @@ HTML_TEMPLATE = """<!doctype html>
   }}
   header h1 {{ margin: 0; font-size: 1.3rem; }}
   header .sub {{ font-size: 0.85rem; opacity: 0.85; margin-top: 4px; }}
-  main {{ max-width: 720px; margin: 0 auto; padding: 16px; }}
+  main {{ max-width: 720px; margin: 0 auto; padding: 16px; overflow-x: hidden; }}
 
-  /* Onglets de vue */
   .tabs {{
     display: flex; gap: 6px; margin-bottom: 18px; background: var(--card);
     border: 1px solid var(--border); border-radius: 8px; padding: 4px;
@@ -204,7 +196,6 @@ HTML_TEMPLATE = """<!doctype html>
   .view {{ display: none; }}
   .view.active {{ display: block; }}
 
-  /* Agenda */
   .day-group {{ margin-bottom: 22px; }}
   .day-group h2 {{
     font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.3px;
@@ -231,7 +222,6 @@ HTML_TEMPLATE = """<!doctype html>
   .notes {{ font-size: 0.8rem; color: var(--muted); margin-top: 3px; font-style: italic; }}
   .empty {{ color: var(--muted); text-align: center; padding: 40px 0; }}
 
-  /* Navigation Semaine / Mois */
   .nav-bar {{
     display: flex; align-items: center; justify-content: space-between;
     margin-bottom: 14px; gap: 8px;
@@ -247,7 +237,6 @@ HTML_TEMPLATE = """<!doctype html>
   }}
   .nav-group {{ display: flex; gap: 6px; }}
 
-  /* Semaine */
   .week-grid {{ display: flex; flex-direction: column; gap: 8px; }}
   .week-day {{
     background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 8px 12px;
@@ -266,9 +255,8 @@ HTML_TEMPLATE = """<!doctype html>
   .wd-event.status-annule {{ border-left-color: var(--cancel); opacity: 0.6; text-decoration: line-through; }}
   .wd-empty {{ font-size: 0.78rem; color: var(--muted); padding: 2px 0; }}
 
-  /* Mois */
   .month-grid {{
-    display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px;
+    display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; max-width: 100%;
   }}
   .month-dow {{
     font-size: 0.7rem; text-transform: uppercase; color: var(--muted); text-align: center;
@@ -299,8 +287,6 @@ HTML_TEMPLATE = """<!doctype html>
     .week-grid {{ display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }}
     .week-day {{ min-width: 0; overflow: hidden; }}
   }}
-  .month-grid {{ max-width: 100%; }}
-  main {{ overflow-x: hidden; }}
 </style>
 </head>
 <body>
@@ -351,11 +337,9 @@ HTML_TEMPLATE = """<!doctype html>
 (function() {{
   var DATA = {data_json};
   var TODAY_STR = {today_json};
-  var JOURS = ["lundi","mardi","mercredi","jeudi","vendredi","samedi","dimanche"];
   var JOURS_COURT = ["lun","mar","mer","jeu","ven","sam","dim"];
   var MOIS = ["janvier","février","mars","avril","mai","juin","juillet",
               "août","septembre","octobre","novembre","décembre"];
-  var STATUS_LABELS = {{"confirme":"Confirmé","provisoire":"Provisoire","annule":"Annulé"}};
 
   function pad(n) {{ return (n < 10 ? "0" : "") + n; }}
   function iso(d) {{ return d.getFullYear() + "-" + pad(d.getMonth()+1) + "-" + pad(d.getDate()); }}
@@ -369,13 +353,10 @@ HTML_TEMPLATE = """<!doctype html>
     var end = a.endDate || a.startDate;
     return a.startDate <= dateStr && dateStr <= end;
   }}
-
   function eventLabel(a) {{
-    var t = a.allDay ? "Toute la journée" : (a.startTime || "");
-    return t;
+    return a.allDay ? "Toute la journée" : (a.startTime || "");
   }}
 
-  // ---------- Onglets ----------
   var tabBtns = document.querySelectorAll(".tab-btn");
   var views = document.querySelectorAll(".view");
   tabBtns.forEach(function(btn) {{
@@ -387,10 +368,9 @@ HTML_TEMPLATE = """<!doctype html>
     }});
   }});
 
-  // ---------- Vue Semaine ----------
   var weekOffset = 0;
   function mondayOf(d) {{
-    var day = d.getDay(); // 0=dim..6=sam
+    var day = d.getDay();
     var diff = (day === 0 ? -6 : 1 - day);
     var m = new Date(d);
     m.setDate(d.getDate() + diff);
@@ -442,7 +422,6 @@ HTML_TEMPLATE = """<!doctype html>
   document.getElementById("week-next").addEventListener("click", function() {{ weekOffset++; renderWeek(); }});
   document.getElementById("week-today").addEventListener("click", function() {{ weekOffset = 0; renderWeek(); }});
 
-  // ---------- Vue Mois ----------
   var monthOffset = 0;
   function renderMonth() {{
     var base = new Date(TODAY.getFullYear(), TODAY.getMonth() + monthOffset, 1);
@@ -466,7 +445,7 @@ HTML_TEMPLATE = """<!doctype html>
     for (var i = 0; i < 42; i++) {{
       var d = new Date(gridStart);
       d.setDate(gridStart.getDate() + i);
-      if (i >= 35 && d.getMonth() !== month) break; // pas de 6e ligne inutile
+      if (i >= 35 && d.getMonth() !== month) break;
       var dStr = iso(d);
       var cell = document.createElement("div");
       var cls = "month-cell";
