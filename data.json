@@ -4,7 +4,7 @@
     "name": "Olivier Landry",
     "role": "Temps plein"
   },
-  "generatedAt": "2026-10-06T11:19:15Z",
+  "generatedAt": "2026-10-08T11:53:08Z",
   "assignments": [
     {
       "id": "seed-01",
@@ -343,6 +343,22 @@
       "unit": ""
     },
     {
+      "id": "4hdx78n51689ai6j9y2g",
+      "allDay": false,
+      "endDate": "2026-10-07",
+      "endTime": "16:00",
+      "location": "",
+      "notes": "",
+      "routeFrom": "usine loki",
+      "routeTo": "Vr expert",
+      "startDate": "2026-10-07",
+      "startTime": "15:00",
+      "status": "confirme",
+      "title": "LC016 RDV entretien VR expert",
+      "type": "production",
+      "unit": "LC016"
+    },
+    {
       "id": "ebexvcz987we3qst7nx8",
       "allDay": false,
       "endDate": "2026-10-07",
@@ -375,22 +391,6 @@
       "unit": "LC028"
     },
     {
-      "id": "4hdx78n51689ai6j9y2g",
-      "allDay": false,
-      "endDate": "2026-10-07",
-      "endTime": "16:00",
-      "location": "",
-      "notes": "",
-      "routeFrom": "usine loki",
-      "routeTo": "Vr expert",
-      "startDate": "2026-10-07",
-      "startTime": "15:00",
-      "status": "confirme",
-      "title": "LC016 RDV entretien VR expert",
-      "type": "production",
-      "unit": "LC016"
-    },
-    {
       "id": "78z8lvn2optcank51he1",
       "allDay": true,
       "endDate": "2026-10-08",
@@ -404,6 +404,38 @@
       "status": "confirme",
       "title": "Contenu LC031 avec L'équipe de Marie-Pierre",
       "type": "marketing",
+      "unit": ""
+    },
+    {
+      "id": "77mpgc7qv1gvij86n1no",
+      "allDay": false,
+      "endDate": "2026-10-14",
+      "endTime": "09:00",
+      "location": "",
+      "notes": "",
+      "routeFrom": "usine Loki",
+      "routeTo": "chabot",
+      "startDate": "2026-10-14",
+      "startTime": "07:00",
+      "status": "confirme",
+      "title": "LC027 aller le porter Chez Chabot",
+      "type": "production",
+      "unit": "LC027"
+    },
+    {
+      "id": "0xgf2h6gt8m5zo3t8s5v",
+      "allDay": false,
+      "endDate": "2026-10-15",
+      "endTime": "08:30",
+      "location": "",
+      "notes": "",
+      "routeFrom": "",
+      "routeTo": "",
+      "startDate": "2026-10-15",
+      "startTime": "07:30",
+      "status": "confirme",
+      "title": "LC028 RDV entretiens",
+      "type": "production",
       "unit": ""
     },
     {
