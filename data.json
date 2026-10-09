@@ -4,7 +4,7 @@
     "name": "Olivier Landry",
     "role": "Temps plein"
   },
-  "generatedAt": "2026-10-08T11:53:08Z",
+  "generatedAt": "2026-10-09T12:50:49Z",
   "assignments": [
     {
       "id": "seed-01",
@@ -407,20 +407,52 @@
       "unit": ""
     },
     {
+      "id": "tz51dxsxut0mhlar6ag6",
+      "allDay": false,
+      "endDate": "2026-10-09",
+      "endTime": "13:00",
+      "location": "",
+      "notes": "",
+      "routeFrom": "Vr expert",
+      "routeTo": "Usine Loki",
+      "startDate": "2026-10-09",
+      "startTime": "12:00",
+      "status": "confirme",
+      "title": "Aller Chercher LC036 chez Vr expert",
+      "type": "production",
+      "unit": "LC036"
+    },
+    {
       "id": "77mpgc7qv1gvij86n1no",
       "allDay": false,
       "endDate": "2026-10-14",
-      "endTime": "09:00",
+      "endTime": "10:00",
       "location": "",
       "notes": "",
       "routeFrom": "usine Loki",
       "routeTo": "chabot",
       "startDate": "2026-10-14",
-      "startTime": "07:00",
+      "startTime": "08:00",
       "status": "confirme",
       "title": "LC027 aller le porter Chez Chabot",
       "type": "production",
       "unit": "LC027"
+    },
+    {
+      "id": "ssrwgocmwf4tse4hoznx",
+      "allDay": false,
+      "endDate": "2026-10-14",
+      "endTime": "08:00",
+      "location": "",
+      "notes": "",
+      "routeFrom": "Usine Loki",
+      "routeTo": "Desharnais centre du poids lourd",
+      "startDate": "2026-10-14",
+      "startTime": "07:00",
+      "status": "confirme",
+      "title": "LC028 RDV alignement Desharnais centre du poids Lourd",
+      "type": "production",
+      "unit": "LC028"
     },
     {
       "id": "0xgf2h6gt8m5zo3t8s5v",
@@ -437,6 +469,22 @@
       "title": "LC028 RDV entretiens",
       "type": "production",
       "unit": ""
+    },
+    {
+      "id": "xf1yppxp3boi39jkvzy6",
+      "allDay": false,
+      "endDate": "2026-10-16",
+      "endTime": "15:00",
+      "location": "usine loki",
+      "notes": "",
+      "routeFrom": "Usine Loki",
+      "routeTo": "Vr expert",
+      "startDate": "2026-10-16",
+      "startTime": "12:00",
+      "status": "confirme",
+      "title": "Aller porter Clara chez Vr expert",
+      "type": "production",
+      "unit": "Clara"
     },
     {
       "id": "y3l0cykh2b14b70stclb",
